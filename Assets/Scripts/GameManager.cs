@@ -1,7 +1,5 @@
-using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 namespace Arkanoid
 {
@@ -16,6 +14,10 @@ namespace Arkanoid
         [SerializeField] private Ball _ball;
 
         [SerializeField] private SpawnBloks _spawnBloks;
+        public int Health
+        {
+            get { return _health; }
+        }
         private void Awake()
         {           
             _controller = new Controller();

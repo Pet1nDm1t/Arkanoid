@@ -53,6 +53,15 @@ public partial class @Controller : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecc3977b-43c5-4e00-9f70-baf680309875"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -176,6 +185,17 @@ public partial class @Controller : IInputActionCollection2, IDisposable
                     ""action"": ""MoveArrow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de3001d6-8359-4154-84bd-921c55bd376f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -187,6 +207,7 @@ public partial class @Controller : IInputActionCollection2, IDisposable
         m_ActionMap_MoveWASD = m_ActionMap.FindAction("MoveWASD", throwIfNotFound: true);
         m_ActionMap_Start = m_ActionMap.FindAction("Start", throwIfNotFound: true);
         m_ActionMap_MoveArrow = m_ActionMap.FindAction("MoveArrow", throwIfNotFound: true);
+        m_ActionMap_Menu = m_ActionMap.FindAction("Menu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +270,7 @@ public partial class @Controller : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_MoveWASD;
     private readonly InputAction m_ActionMap_Start;
     private readonly InputAction m_ActionMap_MoveArrow;
+    private readonly InputAction m_ActionMap_Menu;
     public struct ActionMapActions
     {
         private @Controller m_Wrapper;
@@ -256,6 +278,7 @@ public partial class @Controller : IInputActionCollection2, IDisposable
         public InputAction @MoveWASD => m_Wrapper.m_ActionMap_MoveWASD;
         public InputAction @Start => m_Wrapper.m_ActionMap_Start;
         public InputAction @MoveArrow => m_Wrapper.m_ActionMap_MoveArrow;
+        public InputAction @Menu => m_Wrapper.m_ActionMap_Menu;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -274,6 +297,9 @@ public partial class @Controller : IInputActionCollection2, IDisposable
                 @MoveArrow.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnMoveArrow;
                 @MoveArrow.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnMoveArrow;
                 @MoveArrow.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnMoveArrow;
+                @Menu.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnMenu;
             }
             m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -287,6 +313,9 @@ public partial class @Controller : IInputActionCollection2, IDisposable
                 @MoveArrow.started += instance.OnMoveArrow;
                 @MoveArrow.performed += instance.OnMoveArrow;
                 @MoveArrow.canceled += instance.OnMoveArrow;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
             }
         }
     }
@@ -296,5 +325,6 @@ public partial class @Controller : IInputActionCollection2, IDisposable
         void OnMoveWASD(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
         void OnMoveArrow(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
 }
